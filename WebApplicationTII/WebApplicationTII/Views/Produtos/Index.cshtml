@@ -1,32 +1,30 @@
-﻿@model IEnumerable<WebApplicationTII.Models.Fabricante>
-
+﻿@model IEnumerable<WebApplicationTII.Models.Produto>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "Listagem de FABRICANTES";
+    ViewBag.Title = "Listagem de PRODUTOS";
 }
-
 @if (@TempData["Message"] != null)
 {
     <div class="alert alert-success" role="alert">
         @TempData["Message"]
     </div>
 }
-
 <div class="panel panel-primary">
     <div class="panel-heading">
-        Relação de FABRICANTES
+        Relação de PRODUTOS registrados
     </div>
     <div class="panel-body">
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.FabricanteId)
+                        @Html.DisplayNameFor(model => model.ProdutoId)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Nome)
                     </th>
-                    <th></th>
+                    <th>Categoria</th>
+                    <th>Fabricante</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,15 +32,21 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.FabricanteId)
+                            @Html.DisplayFor(modelItem => item.ProdutoId)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Nome)
                         </td>
                         <td>
-                            @Html.ActionLink("Alterar", "Edit", new { id = item.FabricanteId }) |
-                            @Html.ActionLink("Detalhes", "Details", new { id = item.FabricanteId }) |
-                            @Html.ActionLink("Eliminar", "Delete", new { id = item.FabricanteId })
+                            @Html.DisplayFor(modelItem => item.Categoria.Nome)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Fabricante.Nome)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Alterar", "Edit", new { id = item.ProdutoId }) |
+                            @Html.ActionLink("Detalhes", "Details", new { id = item.ProdutoId }) |
+                            @Html.ActionLink("Eliminar", "Delete", new { id = item.ProdutoId })
                         </td>
                     </tr>
                 }
@@ -50,22 +54,23 @@
         </table>
     </div>
     <div class="panel-footer panel-info">
-        @Html.ActionLink("Registrar um novo FABRICANTE", "Create", null, new { @class = "btn btn-success" })
+        @Html.ActionLink("Registrar um novo PRODUTO", "Create",null,  new { @class = "btn btn-success" })
     </div>
 </div>
 @section styles{
-    <link href="@Url.Content("~/content/DataTables/css/dataTables.bootstrap.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/content/DataTables/css/dataTables.bootstrap.css")"
+          rel="stylesheet">
 }
-@section ScriptPage{
-    <script src="@Url.Content("~/scripts/DataTables/jquery.dataTables.js")"></script>
+@section ScriptPage {
+    <script src=" @Url.Content("~/scripts/DataTables/jquery. dataTables.js")"></script>
     <script src="@Url.Content("~/scripts/DataTables/dataTables.bootstrap.js")"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            $('li').removeClass("active");
+            $('#liProdutos').addClass("active");
             $('.table').dataTable({
                 "order": [[1, "asc"]]
             });
-            $('li').removeClass("active");
-            $('#liFabricantes').addClass("active");
         });
     </script>
 }
